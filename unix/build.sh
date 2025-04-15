@@ -20,7 +20,7 @@ chmod +x "$ps_tms_dir/mvn/bin/mvn"
 
 cd "$ps_tms_dir"
 
-# "./mvn/bin/mvn" -DfinalVersion=$VERSION -DskipTests=$SKIP_TESTS clean -T $THREADS_COUNT install
+"./mvn/bin/mvn" -DfinalVersion=$VERSION -DskipTests=$SKIP_TESTS clean -T $THREADS_COUNT install
 
 cd "$current_dir"
 
