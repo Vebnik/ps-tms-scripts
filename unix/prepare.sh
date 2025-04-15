@@ -62,6 +62,7 @@ mkdir "$ps_tms_work_dir/tmp"
 # frontend
 cp "$frontend_dir/src/main/resources/application.properties" "$frontend_work_dir/application.properties"
 cp "$frontend_dir/src/main/resources/log4j2.xml" "$frontend_work_dir/log4j2.xml"
+touch "$frontend_work_dir/memory.limit"
 
 # importer
 cp "$importer_dir/src/main/resources/application.properties" "$importer_work_dir/application.properties"
