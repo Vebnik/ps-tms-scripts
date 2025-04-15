@@ -28,9 +28,11 @@ echo "-------------- WORK --------------"
 echo "Current           -> $current_dir"
 echo "Frontend          -> $frontend_work_dir"
 echo "Importer          -> $importer_work_dir"
-echo "PS TMS            -> $ps_tms_work_dir"
+echo "PSTMS server      -> $ps_tms_work_dir"
 echo "License           -> $license"
 echo "----------------------------------"
+
+echo ""
 
 echo "-------------- ROOT --------------"
 echo "PS TMS ROOT       -> $ps_tms_dir"
@@ -38,6 +40,8 @@ echo "Frontend          -> $frontend_dir"
 echo "Importer          -> $importer_dir"
 echo "PSTMS server      -> $ps_tms_server_dir"
 echo "----------------------------------"
+
+echo ""
 
 read -p "Is correct: [y/n]: " is_correct
 
@@ -58,13 +62,15 @@ mkdir "$ps_tms_work_dir/tmp"
 # frontend
 cp "$frontend_dir/src/main/resources/application.properties" "$frontend_work_dir/application.properties"
 cp "$frontend_dir/src/main/resources/log4j2.xml" "$frontend_work_dir/log4j2.xml"
-cp "$license" "$frontend_work_dir/license.lic"
 
 # importer
 cp "$importer_dir/src/main/resources/application.properties" "$importer_work_dir/application.properties"
 cp "$importer_dir/src/main/resources/log4j2.xml" "$importer_work_dir/log4j2.xml"
 cp "$importer_dir/src/main/resources/log4j-import.xml" "$importer_work_dir/log4j-import.xml"
 
-# ps_tms
+# pstms
 cp "$ps_tms_server_dir/src/main/resources/application.properties" "$ps_tms_work_dir/application.properties"
 cp "$ps_tms_server_dir/src/main/resources/log4j2.xml" "$ps_tms_work_dir/log4j2.xml"
+
+# other
+cp "$license" "$current_dir/work-dirs/license.lic"
