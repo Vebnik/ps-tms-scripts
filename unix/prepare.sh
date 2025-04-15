@@ -57,6 +57,7 @@ mkdir "$frontend_work_dir/tmp"
 
 mkdir $importer_work_dir
 mkdir "$importer_work_dir/tmp"
+mkdir "$importer_work_dir/importer-service"
 
 mkdir $ps_tms_work_dir
 mkdir "$ps_tms_work_dir/tmp"
@@ -70,10 +71,17 @@ touch "$frontend_work_dir/memory.limit"
 cp "$importer_dir/src/main/resources/application.properties" "$importer_work_dir/application.properties"
 cp "$importer_dir/src/main/resources/log4j2.xml" "$importer_work_dir/log4j2.xml"
 cp "$importer_dir/src/main/resources/log4j-import.xml" "$importer_work_dir/log4j-import.xml"
+touch "$importer_work_dir/memory.limit"
+
+cp "$importer_dir/src/main/resources/application.properties" "$importer_work_dir/importer-service/application.properties"
+cp "$importer_dir/src/main/resources/log4j2.xml" "$importer_work_dir/importer-service/log4j2.xml"
+cp "$importer_dir/src/main/resources/log4j-import.xml" "$importer_work_dir/importer-service/log4j-import.xml"
+touch "$importer_work_dir/importer-service/memory.limit"
 
 # pstms
 cp "$ps_tms_server_dir/src/main/resources/application.properties" "$ps_tms_work_dir/application.properties"
 cp "$ps_tms_server_dir/src/main/resources/log4j2.xml" "$ps_tms_work_dir/log4j2.xml"
+touch "$ps_tms_work_dir/memory.limit"
 
 # other
 cp "$license" "$current_dir/work-dirs/license.lic"
