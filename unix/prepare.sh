@@ -50,6 +50,8 @@ if [[ $is_correct == "n" ]]; then
   exit 1
 fi
 
+mkdir "$current_dir/work-dirs"
+
 mkdir $frontend_work_dir
 mkdir "$frontend_work_dir/tmp"
 

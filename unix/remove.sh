@@ -1,11 +1,7 @@
 current_dir=$PWD
 
-frontend_work_dir="$current_dir/work-dirs/ps-tms-frontend-work"
-importer_work_dir="$current_dir/work-dirs/ps-tms-importer-work"
-ps_tms_work_dir="$current_dir/work-dirs/ps-tms-work"
-license="$current_dir/work-dirs/license.lic"
+builds_dir="$current_dir/builds"
+works_dir="$current_dir/work-dirs"
 
-rm -r $frontend_work_dir
-rm -r $importer_work_dir
-rm -r $ps_tms_work_dir
-rm -r $license
+rm -r $builds_dir
+rm -r $works_dir
