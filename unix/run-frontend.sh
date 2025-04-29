@@ -4,8 +4,8 @@ current_dir=$PWD
 echo $current_dir
 
 instdir="$current_dir/work-dirs"
-workdir="$current_dir/work-dirs/ps-tms-frontend-work"
-serverworkdir="$current_dir/work-dirs/ps-tms-work"
+workdir="$current_dir/work-dirs"
+serverworkdir="$current_dir/work-dirs"
 license="$current_dir/license.lic"
 tmpdir=$workdir/tmp
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 current_dir=$PWD
 
-workdir="$current_dir/work-dirs/ps-tms-importer-work"
+workdir="$current_dir/work-dirs"
 tmpdir=$workdir/tmp
 
 checkcommand="ps -p %s"
