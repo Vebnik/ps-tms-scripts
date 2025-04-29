@@ -1,1 +1,0 @@
-ln -s /home/singula/Work/pbf-work/pstms/ps-tms-frontend-ui/public ./static
