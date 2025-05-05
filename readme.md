@@ -15,3 +15,9 @@ Once run `./unix/run-frontend` and edit new creared config in work-dirs director
 then again run `./unix/run-frontend` <br>
 Run `./unix/run-importer` and edit created config if it needed <br>
 Run `./unix/run-server` and edit created config if it needed <br>
+
+
+## Unix -docker
+Run `./docker/prepare` and give first argument (pstms build packer archive absolute path)
+
+Then run `./docker/start` ...

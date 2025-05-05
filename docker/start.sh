@@ -1,0 +1,1 @@
+docker exec -it ps-tms-ubuntu /usr/bin/bash -c "cd ./release && /usr/sbin/ps-tms/front-end-server/start_servers.sh"
