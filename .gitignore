@@ -1,3 +1,5 @@
 work-dirs/*
 builds/*
 dashboards
+*.gz
+*.tar

@@ -25,6 +25,10 @@ Write-Host "[INFO] Copying and extracting ps-tms ..."
 docker exec -it ps-tms-ubuntu apt update
 Start-Sleep -Seconds 0.25
 
+# run copy and extract ps-tms
+docker exec -it ps-tms-ubuntu apt install dos2unix
+Start-Sleep -Seconds 0.25
+
 docker exec -it ps-tms-ubuntu mkdir ps-tms
 Start-Sleep -Seconds 0.25
 docker cp $ps_tms_tar ps-tms-ubuntu:/ps-tms-packer.tar.gz
@@ -32,10 +36,18 @@ Start-Sleep -Seconds 0.25
 
 docker exec -it ps-tms-ubuntu tar -xzf /ps-tms-packer.tar.gz
 Start-Sleep -Seconds 0.25
+
+docker exec -it ps-tms-ubuntu /usr/bin/bash -c "cd ./release && dos2unix ./*.sh"
+Start-Sleep -Seconds 0.25
+
 docker exec -it ps-tms-ubuntu chmod +x /release/install-service.sh
 Start-Sleep -Seconds 0.25
 
 docker exec -it ps-tms-ubuntu /usr/bin/bash -c "cd ./release && ./install-service.sh"
 Start-Sleep -Seconds 0.25
+
+docker exec -it ps-tms-ubuntu /usr/bin/bash -c "dos2unix /usr/sbin/ps-tms/**/*.sh && dos2unix /usr/sbin/ps-tms/*.sh"
+Start-Sleep -Seconds 0.25
+
 docker exec -it ps-tms-ubuntu /usr/bin/bash -c "sed -i 's/sudo -u pstms //' /usr/sbin/ps-tms/front-end-server/start_servers.sh"
 Start-Sleep -Seconds 0.25
