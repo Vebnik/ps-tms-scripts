@@ -3,3 +3,4 @@ builds/*
 dashboards
 *.gz
 *.tar
+/logs/*

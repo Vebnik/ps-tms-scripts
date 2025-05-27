@@ -1,52 +1,72 @@
-param($ps_tms_dir)
+param($psTmsDir)
+$currentDir=Get-Location
+$targetContainer = "ps-tms-ubuntu-builder"
 
-$current_dir=Get-Location
+function GetContainer {
+  try {
+    $container = docker inspect $targetContainer | ConvertFrom-Json
 
-if (!$ps_tms_dir) {
-  Write-Host "[ERROR] Not found ps_tms_dir first arg"
+    if (!$container) {
+      return $false
+    }
+
+    Write-Host "[ℹ️] Finded container: " $container.Id
+
+    return $true
+  } catch {
+    return $false
+  }
 }
 
-try { 
-  # seleting exist container
-  Write-Host "[INFO] Deleting (if) existing container"
-  docker container rm -f ps-tms-ubuntu-builder
-  Start-Sleep -Seconds 0.25
+if (!$psTmsDir) {
+  Write-Host "[ERROR] Not found psTmsDir first arg"
+}
 
+$ifExist = GetContainer
+
+if (!$ifExist) {
   # pulling ubuntu
-  Write-Host "[INFO] Pulling ubuntu ..."
+  Write-Host "[ℹ️] Pulling ubuntu ..."
   sudo docker pull ubuntu
   Start-Sleep -Seconds 0.25
 
   # run docker as bg tasks
-  Write-Host "[INFO] Runing ps-tms-ubuntu-builder ..."
+  Write-Host "[ℹ️] Runing ps-tms-ubuntu-builder ..."
   docker run -p 3111:3111 -itd --name ps-tms-ubuntu-builder ubuntu
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[INFO] Update apt ..."
+  Write-Host "[ℹ️] Update apt ..."
   docker exec -it ps-tms-ubuntu-builder apt update
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[INFO] Install java 21 ..."
-  docker exec -it ps-tms-ubuntu-builder apt install openjdk-21-jre maven vim
+  Write-Host "[ℹ️] Install java 21 ..."
+  docker exec -it ps-tms-ubuntu-builder apt install openjdk-21-jre vim dos2unix
+  Start-Sleep -Seconds 0.25
+} else {
+  Write-Host "[ℹ️] Deleting exist ps-tms ..."
+  docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "rm -r /pstms"
+  Start-Sleep -Seconds 0.25  
+}
+
+try { 
+  Write-Host "[ℹ️] Copying ps-tms ..."
+  docker cp $psTmsDir ps-tms-ubuntu-builder:/
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[INFO] Copying ps-tms ..."
-  docker cp $ps_tms_dir ps-tms-ubuntu-builder:/
+  Write-Host "[ℹ️] Execution dos2unix ..."
+  docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "cd /pstms && dos2unix ./mvn/bin/* && dos2unix ./mvn/bin/* && dos2unix ./**/*/*.sh &&  dos2unix ./*.sh" | Out-Null
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[INFO] Building ps-tms ..."
-  docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "cd /pstms && ./build.sh"
+  Write-Host "[ℹ️] Building ps-tms ..."
+  docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "cd /pstms && ./build.sh" | Out-File -FilePath ./logs/build-logs.log
   Start-Sleep -Seconds 0.25
 
   # run copy and extract ps-tms
-  Write-Host "[INFO] Building ps-tms ..."
-  docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "cd /pstms && ./build.sh"
+  Write-Host "[ℹ️] Copying ps-tms-packer ..."
+  docker cp ps-tms-ubuntu-builder:/pstms/ps-tms-packer/target/ps-tms-packer-4.0.3-bin.tar.gz $currentDir/ps-tms-packer-4.0.3-bin.tar.gz
   Start-Sleep -Seconds 0.25
 
-  # run copy and extract ps-tms
-  Write-Host "[INFO] Building ps-tms ..."
-  docker cp ps-tms-ubuntu-builder:/pstms/ps-tms-packer/target/ps-tms-packer-4.0.3-bin.tar.gz $current_dir/ps-tms-packer-4.0.3-bin.tar.gz
-  Start-Sleep -Seconds 0.25
+  Write-Host "[ℹ️] Done ✅ -> use prepare script for install ps-tms"
 } catch { 
-  Write-Host "[ERROR] Some error"
+  Write-Host "[🚫] Some error ..."
 }
