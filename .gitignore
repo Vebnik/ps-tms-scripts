@@ -5,3 +5,5 @@ dashboards
 *.tar
 /logs/*
 *.db
+*.csv
+*.txt

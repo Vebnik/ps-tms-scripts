@@ -7,7 +7,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Pulling ubuntu ..."
-  sudo docker pull ubuntu | Out-Null
+  docker pull ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing ps-tms-ubuntu ..."
@@ -25,7 +25,7 @@ try {
   docker exec -it ps-tms-ubuntu mkdir ps-tms
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[ℹ️] Copying ps-tms archive ..."
+  Write-Host -NoNewline "[ℹ️] Copying ps-tms archive ..."
   docker cp $psTmsTar ps-tms-ubuntu:/ps-tms-packer.tar.gz
   Start-Sleep -Seconds 0.25
 

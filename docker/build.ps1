@@ -27,7 +27,7 @@ $ifExist = GetContainer
 if (!$ifExist) {
   # pulling ubuntu
   Write-Host "[ℹ️] Pulling ubuntu ..."
-  sudo docker pull ubuntu
+  docker pull ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   # run docker as bg tasks
@@ -43,6 +43,10 @@ if (!$ifExist) {
   docker exec -it ps-tms-ubuntu-builder apt install openjdk-21-jre vim dos2unix
   Start-Sleep -Seconds 0.25
 } else {
+  Write-Host -NoNewline "[ℹ️] Runing exist ps-tms-ubuntu-builder ..."
+  docker start ps-tms-ubuntu-builder
+  Start-Sleep -Seconds 0.25  
+
   Write-Host "[ℹ️] Deleting exist ps-tms ..."
   docker exec -it ps-tms-ubuntu-builder /usr/bin/bash -c "rm -r /pstms"
   Start-Sleep -Seconds 0.25  
