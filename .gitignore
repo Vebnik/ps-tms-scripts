@@ -4,3 +4,4 @@ dashboards
 *.gz
 *.tar
 /logs/*
+*.db
