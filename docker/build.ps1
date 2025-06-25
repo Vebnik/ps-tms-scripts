@@ -53,7 +53,7 @@ if (!$ifExist) {
 }
 
 try { 
-  Write-Host "[ℹ️] Copying ps-tms ..."
+  Write-Host -NoNewline "[ℹ️] Copying ps-tms ..."
   docker cp $psTmsDir ps-tms-ubuntu-builder:/
   Start-Sleep -Seconds 0.25
 
@@ -66,8 +66,8 @@ try {
   Start-Sleep -Seconds 0.25
 
   # run copy and extract ps-tms
-  Write-Host "[ℹ️] Copying ps-tms-packer ..."
-  docker cp ps-tms-ubuntu-builder:/pstms/ps-tms-packer/target/ps-tms-packer-4.0.3-bin.tar.gz $currentDir/ps-tms-packer-4.0.3-bin.tar.gz
+  Write-Host -NoNewline "[ℹ️] Copying ps-tms-packer ..."
+  docker cp ps-tms-ubuntu-builder:/pstms/ps-tms-packer/target/ps-tms-packer-SNAPSHOT-bin.tar.gz $currentDir/ps-tms-packer-SNAPSHOT-bin.tar.gz
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Done ✅ -> use prepare script for install ps-tms"
