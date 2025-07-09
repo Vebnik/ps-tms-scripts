@@ -32,7 +32,7 @@ if (!$ifExist) {
 
   # run docker as bg tasks
   Write-Host "[ℹ️] Runing ps-tms-ubuntu-builder ..."
-  docker run -p 3111:3111 -itd --name ps-tms-ubuntu-builder ubuntu
+  docker run -itd --name ps-tms-ubuntu-builder ubuntu
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Update apt ..."
