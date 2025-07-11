@@ -16,7 +16,6 @@ try {
     -e SE_NODE_MAX_SESSIONS=2 `
     --name ps-tms-selenium `
     --shm-size="1g" `
-    --network=pstms `
     selenium/standalone-chrome | Out-Null
   Start-Sleep -Seconds 0.25
 

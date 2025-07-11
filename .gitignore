@@ -7,3 +7,4 @@ dashboards
 *.db
 *.csv
 *.txt
+/screens/*

@@ -25,6 +25,15 @@ if (!$psTmsDir) {
 $ifExist = GetContainer
 
 if (!$ifExist) {
+  Write-Host -NoNewline "[ℹ️] Creating logs directory ... "
+  if (Test-Path logss) {
+    Write-Host "Directory exists"
+  } else {
+    mkdir logs
+    Write-Host "Directory created"
+  }
+  Start-Sleep -Seconds 0.25
+
   # pulling ubuntu
   Write-Host "[ℹ️] Pulling ubuntu ..."
   docker pull ubuntu | Out-Null
@@ -40,7 +49,7 @@ if (!$ifExist) {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Install java 21 ..."
-  docker exec -it ps-tms-ubuntu-builder apt install openjdk-21-jre vim dos2unix
+  docker exec -it ps-tms-ubuntu-builder apt install -y openjdk-21-jre vim dos2unix
   Start-Sleep -Seconds 0.25
 } else {
   Write-Host -NoNewline "[ℹ️] Runing exist ps-tms-ubuntu-builder ..."

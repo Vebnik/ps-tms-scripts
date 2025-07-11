@@ -11,7 +11,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing ps-tms-test ..."
-  docker run --network=pstms -itd --name ps-tms-test ubuntu | Out-Null
+  docker run -itd --name ps-tms-test ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Setting timezone -> "
@@ -44,9 +44,3 @@ try {
 } catch { 
   Write-Host "[🚫] Some error ..."
 }
-
-# mvn clean install -Dtest=com.sonoma.pstms.selenium.LoginTest test
-# mvn clean install -T 16 -DnodeIp=host.docker.internal -Dtest=com.sonoma.pstms.selenium.LoginTest test
-
-# mvn install:install-file -Dfile=/ps-tms-selenium-tests/ps-tms-pos-emulator-0.0.1-SNAPSHOT.jar -DgroupId=com.sonoma.pstms -DartifactId=ps-tms-pos-emulator -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
-# mvn install:install-file -Dfile=/ps-tms-selenium-tests/rest-client-0.0.1-SNAPSHOT.jar -DgroupId=com.sonoma.pstms -DartifactId=rest-client -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar

@@ -11,7 +11,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing ps-tms-ubuntu ..."
-  docker run -p 443:8443 -itd --network=pstms --name ps-tms-ubuntu ubuntu | Out-Null
+  docker run -p 443:8443 -itd --name ps-tms-ubuntu ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Updating ubuntu ..."
