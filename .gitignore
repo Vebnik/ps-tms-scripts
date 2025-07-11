@@ -3,8 +3,8 @@ builds/*
 dashboards
 *.gz
 *.tar
-/logs/*
+/logs
 *.db
 *.csv
 *.txt
-/screens/*
+/screens
