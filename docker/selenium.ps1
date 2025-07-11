@@ -13,9 +13,10 @@ try {
     -p 7900:7900 `
     -e VNC_NO_PASSWORD=1 `
     -e SE_OPTS="--enable-managed-downloads true" `
-    -e SE_NODE_MAX_SESSIONS=2 `
+    -e SE_NODE_MAX_SESSIONS=5 `
     --name ps-tms-selenium `
-    --shm-size="1g" `
+    --network=pstms `
+    --shm-size="3g" `
     selenium/standalone-chrome | Out-Null
   Start-Sleep -Seconds 0.25
 

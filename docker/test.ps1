@@ -11,7 +11,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing ps-tms-test ..."
-  docker run -itd --name ps-tms-test ubuntu | Out-Null
+  docker run -itd --network=pstms --name ps-tms-test ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Setting timezone -> "
@@ -24,7 +24,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Install jdk 11 ..."
-  docker exec -it ps-tms-test apt install -y openjdk-21-jre vim dos2unix maven
+  docker exec -it ps-tms-test apt install -y openjdk-21-jre vim dos2unix maven  | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Copying ps-tms-selenium-tests ..."

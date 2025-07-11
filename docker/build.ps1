@@ -26,7 +26,7 @@ $ifExist = GetContainer
 
 if (!$ifExist) {
   Write-Host -NoNewline "[ℹ️] Creating logs directory ... "
-  if (Test-Path logss) {
+  if (Test-Path logs) {
     Write-Host "Directory exists"
   } else {
     mkdir logs
