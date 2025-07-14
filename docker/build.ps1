@@ -18,11 +18,33 @@ function GetContainer {
   }
 }
 
+function CheckExistNetwork {
+  try {
+    $network = docker network inspect pstms | ConvertFrom-Json
+
+    if (!$network) {
+      docker network create pstms
+
+      $network = docker network inspect pstms | ConvertFrom-Json
+      Write-Host "[ℹ️] Created network: " $network.Id
+
+      return
+    }
+
+    Write-Host "[ℹ️] Finded network: " $network.Id
+    return
+  } catch {
+    Write-Host "[🚫] Some error ..."
+  }
+}
+
+
 if (!$psTmsDir) {
   Write-Host "[ERROR] Not found psTmsDir first arg"
 }
 
 $ifExist = GetContainer
+CheckExistNetwork
 
 if (!$ifExist) {
   Write-Host -NoNewline "[ℹ️] Creating logs directory ... "
@@ -42,6 +64,11 @@ if (!$ifExist) {
   # run docker as bg tasks
   Write-Host "[ℹ️] Runing ps-tms-ubuntu-builder ..."
   docker run -itd --name ps-tms-ubuntu-builder ubuntu
+  Start-Sleep -Seconds 0.25
+
+  Write-Host -NoNewline "[ℹ️] Setting timezone -> "
+  docker exec -it ps-tms-test /usr/bin/bash -c "echo UTC > /etc/timezone"
+  docker exec -it ps-tms-test /usr/bin/bash -c "cat /etc/timezone"
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Update apt ..."

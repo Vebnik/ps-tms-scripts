@@ -71,17 +71,12 @@ public class Defaults {
 </properties>
 ```
 
-5. Run `.\docker\test.ps1 "path\to\ps-tms-selenium-tests\root\folder"`
+5. Run `.\docker\test-prepare.ps1 "path\to\ps-tms-selenium-tests\root\folder"`
 ```
 Эта команда запустит контейнер и подготовит окружение для запуска тестов
 ```
 
-6. Run `docker exec -it ps-tms-test bash`
+6. Run `.\docker\test.ps1`
 ```
-Подключаемся к контейнеру с тестами в интерактивном режиме.
-  1. cd ps-tms-selenium-tests
-  2. mvn clean install -Dtest=com.sonoma.pstms.selenium.LoginTest - первичные тесты для создания тестовых пользователей
-  3. Обновляем лицензию (узнать где-нибудь в чате)
-  4. Перезапускаем ps-tms
-  5. mvn clean install - Запуск основных тестов
+Эта команда запустит основные тесты
 ```
