@@ -1,14 +1,14 @@
 try {
   $start = Get-Date
 
-  Write-Host -NoNewline "[ℹ️] Run LoginTest"
+  Write-Host "[ℹ️] Run LoginTest"
   docker exec -it ps-tms-test /usr/bin/bash -c "cd /ps-tms-selenium-tests && mvn install -T 16 -Dtest=com.sonoma.pstms.selenium.LoginTest" | Out-File -FilePath ./logs/LoginTest.log
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline '[ℹ️] Awaiting for update license & restart TMS (press any key)';
   Write-Host -Object ('' -f [System.Console]::ReadKey().Key.ToString());
 
-  Write-Host -NoNewline "[ℹ️] Run Tests"
+  Write-Host "[ℹ️] Run Tests"
   docker exec -it ps-tms-test /usr/bin/bash -c "cd /ps-tms-selenium-tests && mvn install -T 16" | Out-File -FilePath ./logs/Test.log
   Start-Sleep -Seconds 0.25
 
