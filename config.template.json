@@ -1,0 +1,8 @@
+{
+  "pstmsDir": "C:/Users/User/Documents/pstms",
+  "pstmsTestDir": "C:/Users/User/Documents/ps-tms-selenium-tests",
+  "snapshotSuffix": "SUPER-BUILD",
+  "buildContainer": "pstms-builder",
+  "runContainer": "pstms-runner",
+  "network": "pstms"
+}

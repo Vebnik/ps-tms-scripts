@@ -9,3 +9,4 @@ dashboards
 *.txt
 /screens
 test-script.ps1
+config.json
