@@ -1,8 +1,9 @@
 Write-Host "Selected ⏬"
-Write-Host "(Re)build  (1)"
+Write-Host "Rebuild    (1)"
 Write-Host "Delete     (2)"
 Write-Host "Test       (3)"
 Write-Host "Run exist  (4)"
+Write-Host "Clean      (5)"
 $selectedMenu = Read-Host "Menu"
 
 Clear-Host
@@ -153,7 +154,7 @@ function Prepare {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing $runContainer ..."
-  docker run -p 443:8443 -itd --network=$network --name $runContainer ubuntu | Out-Null
+  docker run -p 443:8443 -p 3000:3000 -p 900:9000 -p 800:8000 -itd --network=$network --name $runContainer ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Updating ubuntu ..."
@@ -227,6 +228,9 @@ try {
     }
     "4" {
       Run
+    }
+    "5" {
+      Prepare
     }
     Default {
       Write-Host "[🚫] Selected wrong menu"
