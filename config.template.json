@@ -4,5 +4,6 @@
   "snapshotSuffix": "SUPER-BUILD",
   "buildContainer": "pstms-builder",
   "runContainer": "pstms-runner",
+  "testContainer": "pstms-test",
   "network": "pstms"
 }

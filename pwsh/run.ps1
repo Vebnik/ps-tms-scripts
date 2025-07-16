@@ -194,7 +194,7 @@ function Prepare {
   docker exec -it $runContainer /usr/bin/bash -c "sed -i 's/sudo -u pstms //' /usr/sbin/ps-tms/front-end-server/start_servers.sh" | Out-Null
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[ℹ️] Done ✅ -> Use start script for launch ps-tms"
+  Write-Host "[ℹ️] Done ✅ -> Use run command to start ps-tms"
 }
 
 function Run {
