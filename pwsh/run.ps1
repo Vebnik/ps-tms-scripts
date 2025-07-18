@@ -105,7 +105,7 @@ function Build {
     Start-Sleep -Seconds 0.25
   
     Write-Host "[ℹ️] Install java 21 ..."
-    docker exec -it $buildContainer apt install -y openjdk-21-jre vim dos2unix | Out-Null
+    docker exec -it $buildContainer apt install -y openjdk-21-jdk vim dos2unix | Out-Null
     Start-Sleep -Seconds 0.25
   }
   else {

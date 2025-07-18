@@ -27,7 +27,7 @@ try {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Install dependences (java 11, maven) ..."
-  docker exec -it $testContainer apt install -y openjdk-11-jre vim dos2unix maven | Out-Null
+  docker exec -it $testContainer apt install -y openjdk-11-jdk vim dos2unix maven | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Copying ps-tms-selenium-tests ..."
