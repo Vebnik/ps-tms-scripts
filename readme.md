@@ -8,19 +8,11 @@
 2. Install docker desktop
 
 ### Launch ps-tms
-1. Run `.\docker\build.ps1 "path\to\pstms\root\folder"`
-```text
-Эта команда сбилдит ps-tms из исходников в контейнере и скопирует ps-tms-packer-SNAPSHOT-bin.tar в текущую директорию выполения скрипта.
-```
+1. Make config file `config.json`
 
-2. Run `.\docker\prepare.ps1 "absolute\path\to\ps-tms-packer-SNAPSHOT-bin.tar.gz"`
+2. Run `.\pwsh\run.ps1
 ```text
-Эта команда распакует и установит сервисы ps-tms в контейнере
-```
-
-3. Run `.\docker\start.ps1`
-```text
-Эта команда запустит ps-tms в интерактивном режиме (стоп через ctrl + c)
+Эта команда содержит меню для интерактивного взаимодействия
 ```
 
 ### Launch ps-tms-test
@@ -71,7 +63,7 @@ public class Defaults {
 </properties>
 ```
 
-5. Run `.\docker\test-prepare.ps1 "path\to\ps-tms-selenium-tests\root\folder"`
+5. Run `.\docker\test-prepare.ps1
 ```
 Эта команда запустит контейнер и подготовит окружение для запуска тестов
 ```
