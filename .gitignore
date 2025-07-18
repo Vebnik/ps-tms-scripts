@@ -12,3 +12,4 @@ test-script.ps1
 config.json
 /screenshots
 *.zip
+*.log

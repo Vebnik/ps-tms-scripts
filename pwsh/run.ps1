@@ -157,12 +157,17 @@ function Prepare {
   docker run -p 443:8443 -p 3000:3000 -p 900:9000 -p 800:8000 -itd --network=$network --name $runContainer ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
+  Write-Host -NoNewline "[ℹ️] Setting timezone -> "
+  docker exec -it $runContainer /usr/bin/bash -c "echo UTC > /etc/timezone"
+  docker exec -it $runContainer /usr/bin/bash -c "cat /etc/timezone"
+  Start-Sleep -Seconds 0.25
+
   Write-Host "[ℹ️] Updating ubuntu ..."
   docker exec -it $runContainer apt update | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Installing deps for ubuntu ..."
-  docker exec -it $runContainer apt install dos2unix | Out-Null
+  docker exec -it $runContainer apt install -y dos2unix vim | Out-Null
   Start-Sleep -Seconds 0.25
 
   docker exec -it $runContainer mkdir ps-tms
