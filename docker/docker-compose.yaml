@@ -1,0 +1,42 @@
+services:
+  pstms:
+    image: pstms:latest
+    container_name: pstms
+    healthcheck:
+      test: ["CMD-SHELL", "ls"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pstms-data:/sbin/ps-tms/PS-TMS-work
+    expose:
+      - 8443
+      - 8000
+      - 9000
+    ports:
+      - "443:8443"
+  pstms-test:
+    image: pstms-test:latest
+    container_name: pstms-test
+    environment:
+      nodeIp: pstms-selenium
+      chromiumIp: pstms-selenium
+    depends_on:
+      - pstms
+      - pstms-selenium
+  pstms-selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: pstms-selenium
+    environment:
+      VNC_NO_PASSWORD: 1
+      SE_OPTS: "--enable-managed-downloads true"
+      SE_NODE_MAX_SESSIONS: 5
+    expose:
+      - 4444
+      - 7900
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+
+volumes:
+  pstms-data:

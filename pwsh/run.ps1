@@ -117,26 +117,25 @@ function Build {
     docker exec -it $buildContainer /usr/bin/bash -c "rm -r /pstms"
     Start-Sleep -Seconds 0.25  
   }
-  
+
   Write-Host -NoNewline "[ℹ️] Copying ps-tms ..."
   docker cp $psTmsDir ${buildContainer}:/
   Start-Sleep -Seconds 0.25
-  
+
   Write-Host "[ℹ️] Execution dos2unix ..."
   docker exec -it $buildContainer /usr/bin/bash -c "cd /pstms && dos2unix ./mvn/bin/* && dos2unix ./mvn/bin/* && dos2unix ./**/*/*.sh &&  dos2unix ./*.sh" | Out-Null
   Start-Sleep -Seconds 0.25
   docker exec -it $buildContainer /usr/bin/bash -c "cd /pstms && sed -i 's/$\VERSION/$snapshotSuffix/' ./build.sh" | Out-Null
   Start-Sleep -Seconds 0.25
 
-  
   Write-Host "[ℹ️] Building ps-tms ..."
   docker exec -it $buildContainer /usr/bin/bash -c "cd /pstms && ./build.sh" | Out-File -FilePath ./logs/build-logs.log
   Start-Sleep -Seconds 0.25
-  
+
   Write-Host -NoNewline "[ℹ️] Copying ps-tms-packer ..."
   docker cp ${buildContainer}:/pstms/ps-tms-packer/target/ps-tms-packer-${snapshotSuffix}-bin.tar.gz $currentDir/ps-tms-packer-${snapshotSuffix}-bin.tar.gz
   Start-Sleep -Seconds 0.25
-  
+
   Write-Host "[ℹ️] Done build ✅"
 }
 
@@ -154,7 +153,7 @@ function Prepare {
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing $runContainer ..."
-  docker run -p 443:8443 -p 3000:3000 -p 900:9000 -p 800:8000 -itd --network=$network --name $runContainer ubuntu | Out-Null
+  docker run -p 443:8443 -p 900:9000 -p 800:8000 -itd --network=$network --name $runContainer ubuntu | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Setting timezone -> "

@@ -6,28 +6,24 @@ $network = $config.network
 
 try {
   Write-Host "[ℹ️] Deleting (if) existing container"
-  docker container rm -f $testContainer | Out-Null
+  docker container rm -f $testContainer
   Start-Sleep -Seconds 0.25
 
-  Write-Host "[ℹ️] Pulling ubuntu ..."
-  docker pull ubuntu | Out-Null
+  Write-Host "[ℹ️] Pulling maven:3.9.6-eclipse-temurin-11 ..."
+  docker pull maven:3.9.6-eclipse-temurin-11
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Runing $testContainer ..."
-  docker run -itd --network=$network --name $testContainer ubuntu | Out-Null
+  docker run -itd --network=$network --name $testContainer maven:3.9.6-eclipse-temurin-11 bash
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Setting timezone -> "
-  docker exec -it $testContainer /usr/bin/bash -c "echo UTC > /etc/timezone"
+  docker exec -it $testContainer /usr/bin/bash -c "echo UTC > /etc/timezone" | Out-Null
   docker exec -it $testContainer /usr/bin/bash -c "cat /etc/timezone"
   Start-Sleep -Seconds 0.25
 
   Write-Host "[ℹ️] Updating ubuntu ..."
   docker exec -it $testContainer apt update | Out-Null
-  Start-Sleep -Seconds 0.25
-
-  Write-Host "[ℹ️] Install dependences (java 11, maven) ..."
-  docker exec -it $testContainer apt install -y openjdk-11-jdk vim dos2unix maven | Out-Null
   Start-Sleep -Seconds 0.25
 
   Write-Host -NoNewline "[ℹ️] Copying ps-tms-selenium-tests ..."
@@ -47,3 +43,4 @@ try {
 } catch { 
   Write-Host "[🚫] Some error ..."
 }
+
